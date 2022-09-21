@@ -241,9 +241,9 @@ class BiaffineDependencyParser(Parser):
         if args.feat == 'char':
             FEAT = SubwordField('chars', pad=pad, unk=unk, bos=bos, fix_len=args.fix_len)
         elif args.feat == 'bert':
-            tokenizer = BertField.tokenizer(args.bert)
+            tokenizer = BertField.tokenizer(args.bert, args.use_auth_token)
 
-            args.max_len = min(args.max_len or tokenizer.max_len, tokenizer.max_len)
+            args.max_len = min(args.max_len or tokenizer.max_len_single_sentence, tokenizer.max_len_single_sentence)
             FEAT = BertField('bert', tokenizer, fix_len=args.fix_len)
             WORD.bos = FEAT.bos  # ensure representations have the same length
         else:

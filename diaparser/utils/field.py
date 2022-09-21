@@ -368,14 +368,14 @@ class BertField(SubwordField):
         return
 
     @classmethod
-    def tokenizer(cls, name):
+    def tokenizer(cls, name, use_auth_token):
         """
         Create an instance of tokenizer from either path or name.
         :param name: path or name of tokenizer.
         """
 
         from transformers import AutoTokenizer
-        tokenizer = AutoTokenizer.from_pretrained(name)
+        tokenizer = AutoTokenizer.from_pretrained(name, use_auth_token=use_auth_token)
         tokenizer.bos_token = tokenizer.bos_token or tokenizer.cls_token
         tokenizer.eos_token = tokenizer.eos_token or tokenizer.sep_token
         return tokenizer

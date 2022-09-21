@@ -33,6 +33,8 @@ def main():
                            help='attention head')
     subparser.add_argument('--attention-layer', default=argparse.SUPPRESS, type=int,
                            help='attention layer')
+    subparser.add_argument('--use_auth_token', action='store_true', 
+                           help='use authentication token for HuggingFace hub')
     # evaluate
     subparser = subparsers.add_parser('evaluate', help='Evaluate the specified parser and dataset.')
     subparser.add_argument('--punct', action='store_true', help='whether to include punctuation')

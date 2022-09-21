@@ -43,7 +43,7 @@ class BertEmbedding(nn.Module):
     def __init__(self, model, n_layers, n_out, stride=5, pad_index=0, dropout=0, requires_grad=False,
                  mask_token_id=0, token_dropout=0.0, mix_dropout=0.0,
                  use_hidden_states=True, use_attentions=False,
-                 attention_head=0, attention_layer=8):
+                 attention_head=0, attention_layer=8, use_auth_token=False):
         r"""
         :param model (str): path or name of the pretrained model.
         :param n_layers (int): number of layers from the model to use.
@@ -59,13 +59,14 @@ class BertEmbedding(nn.Module):
         :param use_attentions (bool): wheth4er to use attention weights.
         :param attention_head (int): which attention head to use.
         :param attention_layer (int): which attention layer to use.
+        :param use_auth_token (bool): whether to use an authentication token for HuggingFace Hub.
         """
 
         super().__init__()
 
         config = AutoConfig.from_pretrained(model, output_hidden_states=True,
-                                            output_attentions=use_attentions)
-        self.bert = AutoModel.from_pretrained(model, config=config)
+                                            output_attentions=use_attentions, use_auth_token=use_auth_token)
+        self.bert = AutoModel.from_pretrained(model, config=config, use_auth_token=use_auth_token)
         self.bert.requires_grad_(requires_grad)
 
         self.model = model
