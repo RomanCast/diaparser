@@ -264,7 +264,7 @@ class Parser():
         model.to(args.device)
         transform = state['transform']
         if args.feat == 'bert':
-            tokenizer = BertField.tokenizer(args.bert)
+            tokenizer = BertField.tokenizer(args.bert, args.use_auth_token)
             transform.FORM[1].tokenize = tokenizer.tokenize
         return cls(args, model, transform)
 
