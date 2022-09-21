@@ -118,6 +118,7 @@ class BiaffineDependencyModel(nn.Module):
                  feat_pad_index=0,
                  pad_index=0,
                  unk_index=1,
+                 use_auth_token=False,
                  **kwargs):
         super().__init__()
 
@@ -146,7 +147,8 @@ class BiaffineDependencyModel(nn.Module):
                                             mix_dropout=args.mix_dropout,
                                             use_hidden_states=args.use_hidden_states,
                                             use_attentions=args.use_attentions,
-                                            attention_layer=args.attention_layer)
+                                            attention_layer=args.attention_layer,
+                                            use_auth_token=args.use_auth_token)
             # Setting this requires rebuilding models:
             # args.n_mlp_arc = self.feat_embed.bert.config.max_position_embeddings
             args.n_feat_embed = self.feat_embed.n_out  # taken from the model
